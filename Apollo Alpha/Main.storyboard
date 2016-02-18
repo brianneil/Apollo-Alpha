@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--Beep View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="BeepViewController" customModule="Apollo_Alpha" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sv-5v-gYE">
+                                <rect key="frame" x="260" y="285" width="79" height="30"/>
+                                <state key="normal" title="I heard that"/>
+                                <connections>
+                                    <action selector="WasHeard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7QC-x7-Jr5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAv-wS-Agv">
+                                <rect key="frame" x="282" y="247" width="34" height="30"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="Start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F1M-ms-qMP"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Volume" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGd-Ai-1UK">
+                                <rect key="frame" x="271" y="352" width="57.5" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="58" id="ExW-Gg-vnW"/>
+                                    <constraint firstAttribute="height" constant="21" id="QXO-Ux-yAZ"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="58" id="Y0G-wk-4R9"/>
+                                    <constraint firstAttribute="width" constant="58" id="xtQ-uJ-goR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="ExW-Gg-vnW"/>
+                                        <exclude reference="QXO-Ux-yAZ"/>
+                                        <exclude reference="Y0G-wk-4R9"/>
+                                        <exclude reference="xtQ-uJ-goR"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="az5-aa-8WN">
+                                <rect key="frame" x="265" y="209" width="69" height="30"/>
+                                <state key="normal" title="Beep Test"/>
+                                <connections>
+                                    <action selector="BeepTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6o3-mw-7HN"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Freq" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9o-Z0-h13">
+                                <rect key="frame" x="282" y="323" width="34.5" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="oOZ-sJ-PHK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="oOZ-sJ-PHK"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BLE Status: Disconnected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdp-XQ-3EW">
+                                <rect key="frame" x="201" y="381" width="198.5" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="199" id="mhP-T8-w5B"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="mhP-T8-w5B"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6Sv-5v-gYE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0va-tr-lA0"/>
+                            <constraint firstItem="sdp-XQ-3EW" firstAttribute="top" secondItem="bGd-Ai-1UK" secondAttribute="bottom" constant="8" symbolic="YES" id="1Ex-0X-7tp"/>
+                            <constraint firstItem="wAv-wS-Agv" firstAttribute="centerX" secondItem="az5-aa-8WN" secondAttribute="centerX" id="9bi-4Z-SxY"/>
+                            <constraint firstItem="s9o-Z0-h13" firstAttribute="trailing" secondItem="wAv-wS-Agv" secondAttribute="trailing" id="9cd-qR-pbC"/>
+                            <constraint firstItem="wAv-wS-Agv" firstAttribute="centerX" secondItem="6Sv-5v-gYE" secondAttribute="centerX" id="Gey-It-5jh"/>
+                            <constraint firstItem="bGd-Ai-1UK" firstAttribute="centerX" secondItem="s9o-Z0-h13" secondAttribute="centerX" id="UZ5-Uc-D0R"/>
+                            <constraint firstItem="bGd-Ai-1UK" firstAttribute="top" secondItem="s9o-Z0-h13" secondAttribute="bottom" constant="8" symbolic="YES" id="Uhi-3E-cdf"/>
+                            <constraint firstItem="wAv-wS-Agv" firstAttribute="top" secondItem="az5-aa-8WN" secondAttribute="bottom" constant="8" symbolic="YES" id="YZf-G2-V2w"/>
+                            <constraint firstItem="s9o-Z0-h13" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cCw-CM-noA"/>
+                            <constraint firstItem="az5-aa-8WN" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="189" id="cgt-pB-7CW"/>
+                            <constraint firstItem="6Sv-5v-gYE" firstAttribute="centerX" secondItem="bGd-Ai-1UK" secondAttribute="centerX" id="lK4-eF-X0T"/>
+                            <constraint firstItem="6Sv-5v-gYE" firstAttribute="top" secondItem="wAv-wS-Agv" secondAttribute="bottom" constant="8" symbolic="YES" id="oYQ-99-Wgq"/>
+                            <constraint firstItem="s9o-Z0-h13" firstAttribute="top" secondItem="6Sv-5v-gYE" secondAttribute="bottom" constant="8" symbolic="YES" id="teZ-c4-Ba0"/>
+                            <constraint firstItem="s9o-Z0-h13" firstAttribute="centerX" secondItem="6Sv-5v-gYE" secondAttribute="centerX" id="uYQ-Uu-wen"/>
+                            <constraint firstItem="sdp-XQ-3EW" firstAttribute="centerX" secondItem="bGd-Ai-1UK" secondAttribute="centerX" id="umT-5l-L4f"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="sdp-XQ-3EW" secondAttribute="bottom" constant="198" id="vQ0-1K-tDe"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="lK4-eF-X0T"/>
+                                <exclude reference="9cd-qR-pbC"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="BLEStatus" destination="sdp-XQ-3EW" id="1xP-tP-wfe"/>
+                        <outlet property="Frequency" destination="s9o-Z0-h13" id="Hot-SX-1kb"/>
+                        <outlet property="Volume" destination="bGd-Ai-1UK" id="DFM-Tk-q7H"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="374" y="479"/>
+        </scene>
+    </scenes>
+</document>
