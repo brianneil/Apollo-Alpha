@@ -35,8 +35,10 @@ class BeepViewController: UIViewController {
     var TimerTXDelay: NSTimer?
     var allowTX = true
     
-    struct constants {
+    private struct constants {
         static let beepTest: UInt8 = 1
+        static let isConnectedKey = "isConnected"
+        static let dataKey = "MessageFromPeripheral"
     }
     
     override func viewDidLoad() {
@@ -47,6 +49,9 @@ class BeepViewController: UIViewController {
         
         //Set up BLE connection notification watching, call connectionChanged if it changes
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("connectionChanged:"), name: BLEServiceChangedStatusNotification, object: nil)
+        
+        //Set up message received notification watcher, call messageReceived if we get something
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedMessage:", name: messageFromPeripheralNotification, object: nil)
         
         //start searching for BLE
         btDiscoverySharedInstance
@@ -81,14 +86,31 @@ class BeepViewController: UIViewController {
     @IBOutlet weak var BLEStatus: UILabel!
     
     
+    @IBOutlet weak var EarPlayed: UILabel!
+    
     //MARK: BLE Stuff
     func connectionChanged(notification: NSNotification) {
         let userInfo = notification.userInfo as! [String: Bool] //Grabs the notification data and casts it
         dispatch_async(dispatch_get_main_queue(), {
-            if let isConnected = userInfo["isConnected"] {
+            if let isConnected = userInfo[constants.isConnectedKey] {
                 self.BLEStatusFlag = isConnected
             }
         })
+    }
+    
+    func receivedMessage(notification: NSNotification) {
+        let messageDictionary = notification.userInfo as! [String: Int]
+        let message = messageDictionary[constants.dataKey]
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            if message == 4 {
+                self.EarPlayed.text = "Ear Played: Right"
+            } else if message == 5 {
+                self.EarPlayed.text = "Ear Played: Left"
+            }
+        })
+        
+            
     }
     
     func sendMessage(message: UInt8) {
