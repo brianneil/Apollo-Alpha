@@ -10,12 +10,21 @@ import Foundation
 import CoreBluetooth
 
 let BLEServiceUUID = CBUUID(string: "025A7775-49AA-42BD-BBDB-E2AE77782966")
-let BeepUUID = CBUUID(string: "F38A2C23-BC54-40FC-BED0-60EDDA139F47")
+let talkCharacteristicUUID = CBUUID(string: "F38A2C23-BC54-40FC-BED0-60EDDA139F47")
+let listenCharacteristicUUID = CBUUID(string: "A9CD2F86-8661-4EB1-B132-367A3434BC90")
+
 let BLEServiceChangedStatusNotification = "kBLEServiceChangedStatusNotification"
+let messageFromPeripheralNotification = "kBLEMessageFromController"
 
 class BTService: NSObject, CBPeripheralDelegate {
     var peripheral: CBPeripheral?
     var beepCharacteristic: CBCharacteristic?
+    var listenCharacteristic: CBCharacteristic?
+    
+    private struct constants {
+        static let isConnectedKey = "isConnected"
+        static let dataKey = "MessageFromPeripheral"
+    }
     
     init(initWithPeripheral peripheral: CBPeripheral) {
         super.init()
@@ -43,7 +52,7 @@ class BTService: NSObject, CBPeripheralDelegate {
     //MARK: CBPeripheralDelegate
     
     func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
-        let uuidsForBTService: [CBUUID] = [BeepUUID]
+        let uuidsForBTService: [CBUUID] = [talkCharacteristicUUID, listenCharacteristicUUID] //Look for both characteristics
         
         if peripheral != self.peripheral {
             //we grabbed the wrong one
@@ -78,14 +87,36 @@ class BTService: NSObject, CBPeripheralDelegate {
         
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                if characteristic.UUID == BeepUUID {        //If we have the right characteristic, grab it
+                if characteristic.UUID == talkCharacteristicUUID {        //If we have the talk characteristic, grab it
                     self.beepCharacteristic = characteristic
-                    peripheral.setNotifyValue(true, forCharacteristic: characteristic) //Establishes listening on this characteristic
+                    peripheral.setNotifyValue(true, forCharacteristic: characteristic) //Establishes notifications on this characteristic if the value changes
                     
                     //Send the notification that we've connected
                     sendBTServiceNotificationWithIsBTEConnected(true)
                 }
+                if characteristic.UUID == listenCharacteristicUUID {    //If we have the listen characteristic, grab it
+                    self.listenCharacteristic = characteristic
+                    peripheral.setNotifyValue(true, forCharacteristic: characteristic)
+                }
             }
+        }
+    }
+    
+    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
+        if peripheral != self.peripheral {
+            //got the wrong peripheral somehow
+            return
+        }
+        
+        if error != nil {
+            print("Error in the peripheral update value func")
+        }
+        
+        if let data = characteristic.value {
+            var dataAsInt: Int = 0
+            data.getBytes(&dataAsInt, length: sizeof(NSInteger))    //This might be hackery, got it off StackOverflow
+            let inputDetail = [constants.dataKey: dataAsInt]        //Create a dictionary to send back the view controller.
+            NSNotificationCenter.defaultCenter().postNotificationName(messageFromPeripheralNotification, object: self, userInfo: inputDetail)   //Posts the notification
         }
     }
     
@@ -103,7 +134,7 @@ class BTService: NSObject, CBPeripheralDelegate {
     
     
     func sendBTServiceNotificationWithIsBTEConnected(isBTEConnected: Bool){
-        let connectionDetails = ["isConnected": isBTEConnected] //Creates a key:vale for BTE connection
+        let connectionDetails = [constants.isConnectedKey: isBTEConnected] //Creates a key:value for BTE connection
         NSNotificationCenter.defaultCenter().postNotificationName(BLEServiceChangedStatusNotification,object: self, userInfo: connectionDetails) //Posts the notification
     }
     
