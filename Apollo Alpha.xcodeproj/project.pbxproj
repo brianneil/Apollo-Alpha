@@ -14,9 +14,10 @@
 		D309F54A1C7655830098FD4E /* Apollo_AlphaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F5491C7655830098FD4E /* Apollo_AlphaUITests.swift */; };
 		D309F5581C7655B90098FD4E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D309F5571C7655B90098FD4E /* CoreBluetooth.framework */; };
 		D309F55A1C7655ED0098FD4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D309F5591C7655ED0098FD4E /* Main.storyboard */; };
-		D309F55C1C7656370098FD4E /* BeepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55B1C7656370098FD4E /* BeepViewController.swift */; };
+		D309F55C1C7656370098FD4E /* HTSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55B1C7656370098FD4E /* HTSetupViewController.swift */; };
 		D309F5601C7656650098FD4E /* BTDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55E1C7656650098FD4E /* BTDiscovery.swift */; };
 		D309F5611C7656650098FD4E /* BTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55F1C7656650098FD4E /* BTService.swift */; };
+		D3CAE1791C7791B5001F3220 /* HTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CAE1781C7791B5001F3220 /* HTViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,9 +51,10 @@
 		D309F54B1C7655830098FD4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D309F5571C7655B90098FD4E /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		D309F5591C7655ED0098FD4E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		D309F55B1C7656370098FD4E /* BeepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeepViewController.swift; sourceTree = "<group>"; };
+		D309F55B1C7656370098FD4E /* HTSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTSetupViewController.swift; sourceTree = "<group>"; };
 		D309F55E1C7656650098FD4E /* BTDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTDiscovery.swift; sourceTree = "<group>"; };
 		D309F55F1C7656650098FD4E /* BTService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTService.swift; sourceTree = "<group>"; };
+		D3CAE1781C7791B5001F3220 /* HTViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +109,8 @@
 			children = (
 				D309F5291C7655830098FD4E /* AppDelegate.swift */,
 				D309F5591C7655ED0098FD4E /* Main.storyboard */,
-				D309F55B1C7656370098FD4E /* BeepViewController.swift */,
+				D3CAE1781C7791B5001F3220 /* HTViewController.swift */,
+				D309F55B1C7656370098FD4E /* HTSetupViewController.swift */,
 				D309F55D1C7656520098FD4E /* BLE Classes */,
 				D309F5301C7655830098FD4E /* Assets.xcassets */,
 				D309F5321C7655830098FD4E /* LaunchScreen.storyboard */,
@@ -277,8 +280,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D309F55C1C7656370098FD4E /* BeepViewController.swift in Sources */,
+				D309F55C1C7656370098FD4E /* HTSetupViewController.swift in Sources */,
 				D309F5611C7656650098FD4E /* BTService.swift in Sources */,
+				D3CAE1791C7791B5001F3220 /* HTViewController.swift in Sources */,
 				D309F5601C7656650098FD4E /* BTDiscovery.swift in Sources */,
 				D309F52A1C7655830098FD4E /* AppDelegate.swift in Sources */,
 			);
@@ -501,6 +505,7 @@
 				D309F5501C7655830098FD4E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D309F5511C7655830098FD4E /* Build configuration list for PBXNativeTarget "Apollo AlphaTests" */ = {
 			isa = XCConfigurationList;
@@ -509,6 +514,7 @@
 				D309F5531C7655830098FD4E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D309F5541C7655830098FD4E /* Build configuration list for PBXNativeTarget "Apollo AlphaUITests" */ = {
 			isa = XCConfigurationList;
@@ -517,6 +523,7 @@
 				D309F5561C7655830098FD4E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

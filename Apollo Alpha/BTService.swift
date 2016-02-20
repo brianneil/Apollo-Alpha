@@ -26,6 +26,9 @@ class BTService: NSObject, CBPeripheralDelegate {
         static let dataKey = "MessageFromPeripheral"
     }
     
+    private var TimerTXDelay: NSTimer?
+    private var allowTX = true
+    
     init(initWithPeripheral peripheral: CBPeripheral) {
         super.init()
         self.peripheral = peripheral
@@ -34,6 +37,7 @@ class BTService: NSObject, CBPeripheralDelegate {
     
     deinit {
         reset()
+        stopTimerTXDelay()
     }
     
     func startDiscoveringServices() {
@@ -119,6 +123,37 @@ class BTService: NSObject, CBPeripheralDelegate {
             NSNotificationCenter.defaultCenter().postNotificationName(messageFromPeripheralNotification, object: self, userInfo: inputDetail)   //Posts the notification
         }
     }
+    
+    func createOutgoingMessage(messages: [UInt8]) {
+        //1st, check that allowTX is armed again
+        if !allowTX {
+            return
+        }
+        
+        //Then grab one line of the message and send it out
+        for message in messages {
+            writeMessage(message)
+            //And start the delay timer so we don't overload the TX channel
+            allowTX = false
+            if TimerTXDelay == nil {
+                TimerTXDelay = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("timerTXDelayElapsed"), userInfo: nil, repeats: false)
+            }
+        }
+    }
+    
+    func timerTXDelayElapsed() {    //Timer's done, rearm the message sender, kill the timer
+        allowTX = true
+        stopTimerTXDelay()
+    }
+    
+    func stopTimerTXDelay() {   //If the timer exists, invalidate it
+        if TimerTXDelay == nil {
+            return
+        }
+        TimerTXDelay?.invalidate()
+        TimerTXDelay = nil
+    }
+
     
     func writeMessage(message: UInt8) {
         //First check that we discovered a characteristic before we write to it
