@@ -8,19 +8,7 @@
 
 import UIKit
 
-class BeepViewController: UIViewController {
-
-    var freq: Double = 0.0 {
-        didSet {
-            Frequency.text = "Frequency (Hz): \(freq)"    //Displays the frequency any time it's updated
-        }
-    }
-    
-    var vol: Double = 0.0 {
-        didSet {
-            Volume.text = "Volume (dB): \(vol)"
-        }
-    }
+class HTSetupViewController: UIViewController {
     
     var BLEStatusFlag: Bool = false {
         didSet {
@@ -43,8 +31,6 @@ class BeepViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        freq = 0.0
-        vol = 0.0
         BLEStatus.text = "BLE Status: Disconnected"
         
         //Set up BLE connection notification watching, call connectionChanged if it changes
@@ -70,28 +56,19 @@ class BeepViewController: UIViewController {
     @IBAction func Start(sender: UIButton) {
     }
     
-    @IBAction func WasHeard(sender: UIButton) {
-    }
 
     @IBAction func BeepTest(sender: UIButton) {
         sendMessage(constants.beepTest)
     }
     
-    @IBOutlet weak var Frequency: UILabel!
-    
-    
-    @IBOutlet weak var Volume: UILabel!
-    
     
     @IBOutlet weak var BLEStatus: UILabel!
     
     
-    @IBOutlet weak var EarPlayed: UILabel!
-    
     //MARK: BLE Stuff
     func connectionChanged(notification: NSNotification) {
         let userInfo = notification.userInfo as! [String: Bool] //Grabs the notification data and casts it
-        dispatch_async(dispatch_get_main_queue(), {
+        dispatch_async(dispatch_get_main_queue(), { [unowned self] in
             if let isConnected = userInfo[constants.isConnectedKey] {
                 self.BLEStatusFlag = isConnected
             }
@@ -99,18 +76,8 @@ class BeepViewController: UIViewController {
     }
     
     func receivedMessage(notification: NSNotification) {
-        let messageDictionary = notification.userInfo as! [String: Int]
-        let message = messageDictionary[constants.dataKey]
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            if message == 4 {
-                self.EarPlayed.text = "Ear Played: Right"
-            } else if message == 5 {
-                self.EarPlayed.text = "Ear Played: Left"
-            }
-        })
-        
-            
+//        let messageDictionary = notification.userInfo as! [String: Int]
+//        let message = messageDictionary[constants.dataKey]
     }
     
     func sendMessage(message: UInt8) {
