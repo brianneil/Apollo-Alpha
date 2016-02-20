@@ -10,7 +10,7 @@ import UIKit
 
 class HTSetupViewController: UIViewController {
     
-    var BLEStatusFlag: Bool = false {
+    private var BLEStatusFlag: Bool = false {
         didSet {
             if BLEStatusFlag {
                 BLEStatus.text = "BLE Status: Connected"
@@ -20,11 +20,8 @@ class HTSetupViewController: UIViewController {
         }
     }
     
-    var TimerTXDelay: NSTimer?
-    var allowTX = true
-    
     private struct constants {
-        static let beepTest: UInt8 = 1
+        static let beepTest: [UInt8] = [10]
         static let isConnectedKey = "isConnected"
         static let dataKey = "MessageFromPeripheral"
     }
@@ -36,9 +33,6 @@ class HTSetupViewController: UIViewController {
         //Set up BLE connection notification watching, call connectionChanged if it changes
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("connectionChanged:"), name: BLEServiceChangedStatusNotification, object: nil)
         
-        //Set up message received notification watcher, call messageReceived if we get something
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedMessage:", name: messageFromPeripheralNotification, object: nil)
-        
         //start searching for BLE
         btDiscoverySharedInstance
     }
@@ -46,7 +40,6 @@ class HTSetupViewController: UIViewController {
     deinit {
         //kill the notificaton observer and timer on the way out
         NSNotificationCenter.defaultCenter().removeObserver(self, name: BLEServiceChangedStatusNotification, object: nil)
-        stopTimerTXDelay()
     }
 
     
@@ -58,7 +51,9 @@ class HTSetupViewController: UIViewController {
     
 
     @IBAction func BeepTest(sender: UIButton) {
-        sendMessage(constants.beepTest)
+        if let bleService = btDiscoverySharedInstance.bleService {
+            bleService.createOutgoingMessage(constants.beepTest)
+        }
     }
     
     
@@ -74,48 +69,7 @@ class HTSetupViewController: UIViewController {
             }
         })
     }
-    
-    func receivedMessage(notification: NSNotification) {
-//        let messageDictionary = notification.userInfo as! [String: Int]
-//        let message = messageDictionary[constants.dataKey]
-    }
-    
-    func sendMessage(message: UInt8) {
-        //1st, check that allowTX is armed again
-        if !allowTX {
-            return
-        }
-        
-        //Then send the message to the BLE shield if the service exists and we are connected
-        if let bleService = btDiscoverySharedInstance.bleService {
-            bleService.writeMessage(message)
-            
-            //And start the delay timer so we don't overload the TX channel
-            allowTX = false
-            if TimerTXDelay == nil {
-                TimerTXDelay = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("timerTXDelayElapsed"), userInfo: nil, repeats: false)
-            }
-        }
-    }
-    
-    func timerTXDelayElapsed() {    //Timer's done, rearm the message sender, kill the timer
-        allowTX = true
-        stopTimerTXDelay()
-    }
-    
-    func stopTimerTXDelay() {   //If the timer exists, invalidate it
-        if TimerTXDelay == nil {
-            return
-        }
-        
-        TimerTXDelay?.invalidate()
-        TimerTXDelay = nil
-    }
-    
-    
-    
-    
-    
+
     
     /*
     // MARK: - Navigation

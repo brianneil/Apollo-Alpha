@@ -38,9 +38,23 @@ class HTViewController: UIViewController {
         static let bothEars = 17
         static let leftEar = 27
         static let rightEar = 37
-        static let fiveHundredHz = 1
+        static let fiveHundredHz = 1    //Make sure this matches the peripheral code
         static let oneKHz = 2
         static let twoKHz = 3
+    }
+    
+    private struct OutgoingMessages {
+        static let startListening: UInt8 = 0
+        static let sameFreq: UInt8  = 1
+        static let nextFreq: UInt8  = 2
+        static let lastFreq: UInt8  = 3
+        static let sameVol: UInt8  = 4
+        static let higherVol: UInt8  = 5
+        static let lowerVol: UInt8  = 6
+        static let bothEars: UInt8  = 7
+        static let leftEar: UInt8  = 8
+        static let rightEar: UInt8  = 9
+        static let testBeep: UInt8  = 10
     }
     
     //MARK: - Life Cycle
@@ -53,6 +67,11 @@ class HTViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedMessage:", name: messageFromPeripheralNotification, object: nil)
         
     }
+    
+    deinit {
+        //kill the notificaton observer and timer on the way out
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: messageFromPeripheralNotification, object: nil)
+    }
 
     //MARK: UI
     
@@ -63,9 +82,7 @@ class HTViewController: UIViewController {
     @IBOutlet weak var EarPlayed: UILabel!
     
     @IBAction func wasHeard(sender: UIButton) {
-        if let bleService = btDiscoverySharedInstance.bleService {
-            bleService.writeMessage(UInt8(1))
-        }
+        wasHeardSendMessage();
     }
     
     func updateUI() {
@@ -104,8 +121,17 @@ class HTViewController: UIViewController {
             }
         }
     }
-
     
+    func wasHeardSendMessage() {
+        if let bleService = btDiscoverySharedInstance.bleService {  //We have somewhere to send the message, so build it.
+            var messages: [UInt8] = []
+            messages.append(OutgoingMessages.startListening)    //1st tell the peripheral a message is about to hit
+            messages.append(OutgoingMessages.sameFreq)          //Play the same sound at a lower volume
+            messages.append(OutgoingMessages.lowerVol)
+            messages.append(OutgoingMessages.bothEars)
+            bleService.createOutgoingMessage(messages)
+        }
+    }
     
     /*
     // MARK: - Navigation
