@@ -26,6 +26,8 @@ class HTSetupViewController: UIViewController {
         static let dataKey = "MessageFromPeripheral"
     }
     
+    let comms = CommunicationCenter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         BLEStatus.text = "BLE Status: Disconnected"
@@ -71,14 +73,26 @@ class HTSetupViewController: UIViewController {
     }
 
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let destination = segue.destinationViewController as UIViewController
+        if let _ = destination as? HTBarsViewController     //Meaning we're headed to the HTBars view controller
+        {
+            //Send a message to the peripheral to beep. When it beeps, it should respond back with a message that will be caught in the next view controller.
+            comms.SendMessageToPeripheral(CommunicationCenter.OutgoingMessageType.playFirstBeep)
+        }
+        
+        
+        
+        
+        
+        
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }

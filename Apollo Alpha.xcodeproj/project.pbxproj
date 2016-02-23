@@ -17,6 +17,8 @@
 		D309F55C1C7656370098FD4E /* HTSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55B1C7656370098FD4E /* HTSetupViewController.swift */; };
 		D309F5601C7656650098FD4E /* BTDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55E1C7656650098FD4E /* BTDiscovery.swift */; };
 		D309F5611C7656650098FD4E /* BTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55F1C7656650098FD4E /* BTService.swift */; };
+		D38ACA151C7B92F3008D1EE7 /* HTBarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38ACA141C7B92F3008D1EE7 /* HTBarsViewController.swift */; };
+		D38ACA171C7BB8EB008D1EE7 /* CommunicationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38ACA161C7BB8EB008D1EE7 /* CommunicationCenter.swift */; };
 		D3CAE1791C7791B5001F3220 /* HTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CAE1781C7791B5001F3220 /* HTViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +56,8 @@
 		D309F55B1C7656370098FD4E /* HTSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTSetupViewController.swift; sourceTree = "<group>"; };
 		D309F55E1C7656650098FD4E /* BTDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTDiscovery.swift; sourceTree = "<group>"; };
 		D309F55F1C7656650098FD4E /* BTService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTService.swift; sourceTree = "<group>"; };
+		D38ACA141C7B92F3008D1EE7 /* HTBarsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTBarsViewController.swift; sourceTree = "<group>"; };
+		D38ACA161C7BB8EB008D1EE7 /* CommunicationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunicationCenter.swift; sourceTree = "<group>"; };
 		D3CAE1781C7791B5001F3220 /* HTViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,12 +111,14 @@
 		D309F5281C7655830098FD4E /* Apollo Alpha */ = {
 			isa = PBXGroup;
 			children = (
-				D309F5291C7655830098FD4E /* AppDelegate.swift */,
 				D309F5591C7655ED0098FD4E /* Main.storyboard */,
-				D3CAE1781C7791B5001F3220 /* HTViewController.swift */,
+				D38ACA141C7B92F3008D1EE7 /* HTBarsViewController.swift */,
+				D38ACA161C7BB8EB008D1EE7 /* CommunicationCenter.swift */,
 				D309F55B1C7656370098FD4E /* HTSetupViewController.swift */,
 				D309F55D1C7656520098FD4E /* BLE Classes */,
 				D309F5301C7655830098FD4E /* Assets.xcassets */,
+				D309F5291C7655830098FD4E /* AppDelegate.swift */,
+				D3CAE1781C7791B5001F3220 /* HTViewController.swift */,
 				D309F5321C7655830098FD4E /* LaunchScreen.storyboard */,
 				D309F5351C7655830098FD4E /* Info.plist */,
 			);
@@ -284,6 +290,8 @@
 				D309F5611C7656650098FD4E /* BTService.swift in Sources */,
 				D3CAE1791C7791B5001F3220 /* HTViewController.swift in Sources */,
 				D309F5601C7656650098FD4E /* BTDiscovery.swift in Sources */,
+				D38ACA151C7B92F3008D1EE7 /* HTBarsViewController.swift in Sources */,
+				D38ACA171C7BB8EB008D1EE7 /* CommunicationCenter.swift in Sources */,
 				D309F52A1C7655830098FD4E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

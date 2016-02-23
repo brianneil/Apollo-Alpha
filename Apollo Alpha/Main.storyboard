@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YGk-Ts-qTc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YGk-Ts-qTc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Setup-->
@@ -22,7 +23,7 @@
                                 <state key="normal" title="Start Hearing Test"/>
                                 <connections>
                                     <action selector="Start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F1M-ms-qMP"/>
-                                    <segue destination="I6p-s8-tk3" kind="show" id="NQ6-jO-JlS"/>
+                                    <segue destination="4lo-oA-e0R" kind="show" id="8Ls-RY-dEx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="az5-aa-8WN">
@@ -126,7 +127,58 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eaf-1S-VqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1881" y="479"/>
+            <point key="canvasLocation" x="1886" y="-220"/>
+        </scene>
+        <!--Bars View Controller-->
+        <scene sceneID="iK1-r2-Z2T">
+            <objects>
+                <viewController id="4lo-oA-e0R" customClass="HTBarsViewController" customModule="Apollo_Alpha" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VhB-Bs-8XX"/>
+                        <viewControllerLayoutGuide type="bottom" id="vJ3-dD-rdD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LC5-S9-Cfe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2yF-lY-exm">
+                                <rect key="frame" x="0.0" y="28" width="600" height="356"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMW-xQ-Gj0">
+                                <rect key="frame" x="200" y="392" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pMW-xQ-Gj0" secondAttribute="height" multiplier="1:1" id="jHo-Cc-0NC"/>
+                                    <constraint firstAttribute="width" constant="200" id="lcD-In-0vp"/>
+                                </constraints>
+                                <state key="normal" image="Tap Here Button"/>
+                                <connections>
+                                    <action selector="TappedHere:" destination="4lo-oA-e0R" eventType="touchUpInside" id="n7a-cZ-F0m"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2yF-lY-exm" firstAttribute="top" secondItem="VhB-Bs-8XX" secondAttribute="bottom" constant="8" symbolic="YES" id="9Bp-aE-1W6"/>
+                            <constraint firstItem="2yF-lY-exm" firstAttribute="leading" secondItem="LC5-S9-Cfe" secondAttribute="leading" id="Bmw-zU-NZU"/>
+                            <constraint firstItem="pMW-xQ-Gj0" firstAttribute="top" secondItem="2yF-lY-exm" secondAttribute="bottom" constant="8" symbolic="YES" id="LYK-RJ-iep"/>
+                            <constraint firstAttribute="trailing" secondItem="2yF-lY-exm" secondAttribute="trailing" id="cUd-gF-scF"/>
+                            <constraint firstItem="pMW-xQ-Gj0" firstAttribute="centerX" secondItem="LC5-S9-Cfe" secondAttribute="centerX" id="iua-tw-Klo"/>
+                            <constraint firstItem="vJ3-dD-rdD" firstAttribute="top" secondItem="pMW-xQ-Gj0" secondAttribute="bottom" constant="8" symbolic="YES" id="osB-WG-cJJ"/>
+                            <constraint firstItem="2yF-lY-exm" firstAttribute="bottom" secondItem="vJ3-dD-rdD" secondAttribute="top" id="sR0-s4-uq3"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="sR0-s4-uq3"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="HTBarsView" destination="2yF-lY-exm" id="KjJ-ib-Iaf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hc0-TY-irs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1877" y="479"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fhb-PN-2wD">
