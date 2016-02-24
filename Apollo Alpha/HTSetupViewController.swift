@@ -21,7 +21,9 @@ class HTSetupViewController: UIViewController {
     }
     
     private struct constants {
-        static let beepTest: [UInt8] = [10]
+        static let TestFreq = HTBarsViewController.Freqs.Hz1000
+        static let TestEar = HTBarsViewController.Ears.bothEars
+        static let TestVol = 75
         static let isConnectedKey = "isConnected"
         static let dataKey = "MessageFromPeripheral"
     }
@@ -53,8 +55,9 @@ class HTSetupViewController: UIViewController {
     
 
     @IBAction func BeepTest(sender: UIButton) {
-        if let bleService = btDiscoverySharedInstance.bleService {
-            bleService.createOutgoingMessage(constants.beepTest)
+        if let _ = btDiscoverySharedInstance.bleService {
+            let tone = HTBarsViewController.Tone(frequency: constants.TestFreq, ear: constants.TestEar, volume: constants.TestVol)
+            comms.SendMessageToPeripheral(tone)
         }
     }
     
@@ -76,23 +79,18 @@ class HTSetupViewController: UIViewController {
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let destination = segue.destinationViewController as UIViewController
-        if let _ = destination as? HTBarsViewController     //Meaning we're headed to the HTBars view controller
-        {
-            //Send a message to the peripheral to beep. When it beeps, it should respond back with a message that will be caught in the next view controller.
-            comms.SendMessageToPeripheral(CommunicationCenter.OutgoingMessageType.playFirstBeep)
-        }
-        
-        
-        
-        
-        
-        
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
+//    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//
+//        
+//        
+//        
+//        
+//        
+//        
+//        // Get the new view controller using segue.destinationViewController.
+//        // Pass the selected object to the new view controller.
+//    }
     
 
 }

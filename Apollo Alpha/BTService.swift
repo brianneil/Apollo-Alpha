@@ -118,8 +118,14 @@ class BTService: NSObject, CBPeripheralDelegate {
         
         if let data = characteristic.value {
             var dataAsInt: Int = 0
+            var didFire: Bool = false
+            
             data.getBytes(&dataAsInt, length: sizeof(NSInteger))    //This might be hackery, got it off StackOverflow
-            let inputDetail = [constants.dataKey: dataAsInt]        //Create a dictionary to send back the view controller.
+            if dataAsInt == 1 {
+                didFire = true
+            }
+            
+            let inputDetail = [constants.dataKey: didFire]        //Create a dictionary to send back the view controller.
             NSNotificationCenter.defaultCenter().postNotificationName(messageFromPeripheralNotification, object: self, userInfo: inputDetail)   //Posts the notification
         }
     }

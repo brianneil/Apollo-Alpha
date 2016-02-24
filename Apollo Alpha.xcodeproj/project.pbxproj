@@ -19,7 +19,6 @@
 		D309F5611C7656650098FD4E /* BTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55F1C7656650098FD4E /* BTService.swift */; };
 		D38ACA151C7B92F3008D1EE7 /* HTBarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38ACA141C7B92F3008D1EE7 /* HTBarsViewController.swift */; };
 		D38ACA171C7BB8EB008D1EE7 /* CommunicationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38ACA161C7BB8EB008D1EE7 /* CommunicationCenter.swift */; };
-		D3CAE1791C7791B5001F3220 /* HTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CAE1781C7791B5001F3220 /* HTViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +57,6 @@
 		D309F55F1C7656650098FD4E /* BTService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTService.swift; sourceTree = "<group>"; };
 		D38ACA141C7B92F3008D1EE7 /* HTBarsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTBarsViewController.swift; sourceTree = "<group>"; };
 		D38ACA161C7BB8EB008D1EE7 /* CommunicationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunicationCenter.swift; sourceTree = "<group>"; };
-		D3CAE1781C7791B5001F3220 /* HTViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +116,6 @@
 				D309F55D1C7656520098FD4E /* BLE Classes */,
 				D309F5301C7655830098FD4E /* Assets.xcassets */,
 				D309F5291C7655830098FD4E /* AppDelegate.swift */,
-				D3CAE1781C7791B5001F3220 /* HTViewController.swift */,
 				D309F5321C7655830098FD4E /* LaunchScreen.storyboard */,
 				D309F5351C7655830098FD4E /* Info.plist */,
 			);
@@ -288,7 +285,6 @@
 			files = (
 				D309F55C1C7656370098FD4E /* HTSetupViewController.swift in Sources */,
 				D309F5611C7656650098FD4E /* BTService.swift in Sources */,
-				D3CAE1791C7791B5001F3220 /* HTViewController.swift in Sources */,
 				D309F5601C7656650098FD4E /* BTDiscovery.swift in Sources */,
 				D38ACA151C7B92F3008D1EE7 /* HTBarsViewController.swift in Sources */,
 				D38ACA171C7BB8EB008D1EE7 /* CommunicationCenter.swift in Sources */,
