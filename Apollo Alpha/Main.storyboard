@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Setup-->
@@ -127,11 +128,78 @@
                     <connections>
                         <outlet property="EarLabel" destination="nRv-q7-csJ" id="gU4-nr-caC"/>
                         <outlet property="HTBarsView" destination="2yF-lY-exm" id="KjJ-ib-Iaf"/>
+                        <segue destination="ge5-Oe-CI4" kind="show" identifier="Show Results" id="3OY-sI-M6A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hc0-TY-irs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1877" y="479"/>
+        </scene>
+        <!--Results View Controller-->
+        <scene sceneID="CCb-rJ-47H">
+            <objects>
+                <viewController id="ge5-Oe-CI4" customClass="HTResultsViewController" customModule="Apollo_Alpha" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2BK-kM-c7A"/>
+                        <viewControllerLayoutGuide type="bottom" id="sVe-WZ-aOa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wA4-0X-y2B">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Right Ear Results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xja-co-xn2">
+                                <rect key="frame" x="20" y="72" width="129.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h1S-qD-vXr">
+                                <rect key="frame" x="20" y="101" width="560" height="227.5"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HuB-DZ-PnO">
+                                <rect key="frame" x="20" y="365" width="560" height="227"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Left Ear Results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gx-70-lut">
+                                <rect key="frame" x="20" y="336.5" width="119.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xja-co-xn2" firstAttribute="top" secondItem="2BK-kM-c7A" secondAttribute="bottom" constant="8" symbolic="YES" id="34T-CP-Gw7"/>
+                            <constraint firstItem="HuB-DZ-PnO" firstAttribute="centerX" secondItem="wA4-0X-y2B" secondAttribute="centerX" id="CMs-LN-fAK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="HuB-DZ-PnO" secondAttribute="trailing" id="DJt-Ud-Qv5"/>
+                            <constraint firstItem="0gx-70-lut" firstAttribute="top" secondItem="h1S-qD-vXr" secondAttribute="bottom" constant="8" symbolic="YES" id="Kp8-3t-yGq"/>
+                            <constraint firstItem="h1S-qD-vXr" firstAttribute="top" secondItem="xja-co-xn2" secondAttribute="bottom" constant="8" symbolic="YES" id="Kyh-Tg-qgn"/>
+                            <constraint firstItem="h1S-qD-vXr" firstAttribute="width" secondItem="HuB-DZ-PnO" secondAttribute="width" id="M7u-tL-zFo"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="0gx-70-lut" secondAttribute="leading" id="SJt-uP-o7r"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="h1S-qD-vXr" secondAttribute="trailing" id="U4N-7t-Qow"/>
+                            <constraint firstItem="HuB-DZ-PnO" firstAttribute="leading" secondItem="wA4-0X-y2B" secondAttribute="leadingMargin" id="Yxc-DT-5tt"/>
+                            <constraint firstItem="HuB-DZ-PnO" firstAttribute="top" secondItem="0gx-70-lut" secondAttribute="bottom" constant="8" symbolic="YES" id="bz7-9t-Whf"/>
+                            <constraint firstItem="sVe-WZ-aOa" firstAttribute="top" secondItem="HuB-DZ-PnO" secondAttribute="bottom" constant="8" symbolic="YES" id="c81-wh-PZB"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="xja-co-xn2" secondAttribute="leading" id="cN8-cy-9EU"/>
+                            <constraint firstItem="h1S-qD-vXr" firstAttribute="centerX" secondItem="wA4-0X-y2B" secondAttribute="centerX" id="fyF-RB-LCh"/>
+                            <constraint firstItem="h1S-qD-vXr" firstAttribute="leading" secondItem="wA4-0X-y2B" secondAttribute="leadingMargin" id="nu8-aX-f2w"/>
+                            <constraint firstItem="h1S-qD-vXr" firstAttribute="height" secondItem="HuB-DZ-PnO" secondAttribute="height" id="q7I-7k-zYy"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="M7u-tL-zFo"/>
+                                <exclude reference="fyF-RB-LCh"/>
+                                <exclude reference="CMs-LN-fAK"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="LeftEarResults" destination="HuB-DZ-PnO" id="Di3-V3-1UD"/>
+                        <outlet property="RightEarResults" destination="h1S-qD-vXr" id="qOj-8E-TgR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zMV-rt-nle" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2635" y="479"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fhb-PN-2wD">

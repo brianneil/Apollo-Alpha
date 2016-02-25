@@ -8,7 +8,7 @@
 
 import Foundation
 
-let messageParsedNotification = "kBLEMessageReceived"
+let PeripheralBeepedNotification = "kBLEMessageReceived"
 
 class CommunicationCenter: NSObject {
     
@@ -49,6 +49,6 @@ class CommunicationCenter: NSObject {
     }
     
     private func sendPeripheralBeepedNotification(){
-        NSNotificationCenter.defaultCenter().postNotificationName(messageParsedNotification, object: self) //Posts the notification
+        NSNotificationCenter.defaultCenter().postNotificationName(PeripheralBeepedNotification, object: self) //Posts the notification
     }
 }
