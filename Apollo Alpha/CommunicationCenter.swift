@@ -44,6 +44,7 @@ class CommunicationCenter: NSObject {
             messages.append(UInt8(tone.frequency.hashValue))
             messages.append(UInt8(tone.volume))
             messages.append(UInt8(tone.ear.hashValue))
+            
             bleService.createOutgoingMessage(messages)
         }
     }

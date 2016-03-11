@@ -9,9 +9,13 @@
 import Foundation
 import CoreBluetooth
 
-let BLEServiceUUID = CBUUID(string: "025A7775-49AA-42BD-BBDB-E2AE77782966")
-let talkCharacteristicUUID = CBUUID(string: "F38A2C23-BC54-40FC-BED0-60EDDA139F47")
-let listenCharacteristicUUID = CBUUID(string: "A9CD2F86-8661-4EB1-B132-367A3434BC90")
+//let BLEServiceUUID = CBUUID(string: "025A7775-49AA-42BD-BBDB-E2AE77782966") //This is for the Black Widow
+//let talkCharacteristicUUID = CBUUID(string: "F38A2C23-BC54-40FC-BED0-60EDDA139F47") //For Black Widow
+//let listenCharacteristicUUID = CBUUID(string: "A9CD2F86-8661-4EB1-B132-367A3434BC90")   //For Black Widow
+
+let BLEServiceUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E") //This is for the Nordic
+let talkCharacteristicUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E") //For Nordic
+let listenCharacteristicUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")   //For Nordic
 
 let BLEServiceChangedStatusNotification = "kBLEServiceChangedStatusNotification"
 let messageFromPeripheralNotification = "kBLEMessageFromController"
@@ -167,6 +171,8 @@ class BTService: NSObject, CBPeripheralDelegate {
             //create a mutable var to pass to the writeValue fxn
             var messageValue = message
             let data = NSData(bytes: &messageValue, length: sizeof(UInt8))  //Create a bag of bits
+            print("\(message)")
+            print("\(data)")
             self.peripheral?.writeValue(data, forCharacteristic: beepCharacteristic, type: CBCharacteristicWriteType.WithResponse)  //Send the bag of bits
         }
     }
