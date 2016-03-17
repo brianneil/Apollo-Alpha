@@ -77,6 +77,7 @@ class HTBarsViewController: UIViewController {
         static let StartingVolume = 75
         static let VolumeDecrement = 10
         static let VolumeIncrease = 5
+        static let LowestAllowedVolume = 235
         static let StartingFrequency: Freqs = Freqs.Hz125
         static let StartingEar: Ears = Ears.rightEar
     }
@@ -268,8 +269,14 @@ class HTBarsViewController: UIViewController {
                     currentTest!.currentMode = .descending
                     PlayLowerVolume()
                 }
-            case .descending:
-                PlayLowerVolume()
+            case .descending:       //Need to keep the volume from going out of bounds for UInt here, so it can't be greater than 255. If it gets close, hearing is good at that frequency, so grab it as a final threshold and move on
+                if currentTest!.tone.volume >= TestConstants.LowestAllowedVolume {  //This is greater than because higher numbers are lower volumes
+                    currentTest!.finalThreshold = currentTest!.tone.volume
+                    finalResults.append(currentTest!.tone.volume)
+                    PlayNextFrequency()
+                } else {
+                    PlayLowerVolume()
+                }
             }
         }
     }
