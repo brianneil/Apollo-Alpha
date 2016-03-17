@@ -59,11 +59,15 @@ class HTBarsViewController: UIViewController {
     //Other variables
     private var beepReactionTimer: NSTimer? = nil
     private var beepDelayTimer: NSTimer? = nil
+    var isBeeping: Bool = false
     
     //Timer constants
     private struct timeConstants {
-        static let reactionTimeAllowed = 3.0
-        static let delayAfterTap = 2.0
+        static let reactionTimeAllowed = 2.0        //This is the length of the beep. They must press during the beep.
+    }
+    
+    var delayAfterTap: Double {
+        return Double(arc4random_uniform(4)) + 2.0    //Returns a random int between 2 and 4.
     }
     
     //String constants
@@ -129,13 +133,15 @@ class HTBarsViewController: UIViewController {
     
     @IBAction func TappedHere(sender: UIButton) {
         //start a timer that delays the next beep
+        if(isBeeping) {  //Need this if statement to so we ignore false taps (i.e. taps when the tone isn't playing).
+            CaughtATone()   //Tell the brain we caught a tone.
+            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+                if self.beepDelayTimer == nil {
+                    self.beepDelayTimer = NSTimer.scheduledTimerWithTimeInterval(self.delayAfterTap, target: self, selector: Selector("DelayAfterTapTimerElapsed"), userInfo: nil, repeats: false)
+                }
+                })
+        }
         StopBeepReactionTimer() //They hit it before the reaction timer elapsed, so kill that timer until the next beep
-        CaughtATone()   //Tell the brain we caught a tone.
-        dispatch_async(dispatch_get_main_queue(), { [unowned self] in
-            if self.beepDelayTimer == nil {
-                self.beepDelayTimer = NSTimer.scheduledTimerWithTimeInterval(timeConstants.delayAfterTap, target: self, selector: Selector("DelayAfterTapTimerElapsed"), userInfo: nil, repeats: false)
-            }
-        })
     }
     
     @IBOutlet weak var EarLabel: UILabel!
@@ -367,6 +373,7 @@ class HTBarsViewController: UIViewController {
     }
     
     func ToneWasPlayed() {
+        isBeeping = true    //Beep is happening
         //Start a timer. If this timer elapses, it means the user missed the tone. If they tap before this timer elapses, the tap handler will kill this timer.
         dispatch_async(dispatch_get_main_queue(), { [unowned self] in
             if self.beepReactionTimer == nil {
@@ -384,6 +391,7 @@ class HTBarsViewController: UIViewController {
         if beepReactionTimer == nil {
             return
         }
+        isBeeping = false
         beepReactionTimer?.invalidate()
         beepReactionTimer = nil
     }
