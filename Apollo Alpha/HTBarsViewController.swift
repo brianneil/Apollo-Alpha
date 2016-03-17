@@ -304,6 +304,7 @@ class HTBarsViewController: UIViewController {
             case .Hz8000:
                 if oldEar == .leftEar {     //This is the final ear, we're done.
                     ShowResults()
+                    return
                 } else if oldEar == .rightEar { //Go to the next ear, start over the frequencies, remove the rects, update the ear
                     currentTest!.tone.ear = .leftEar
                     currentTest!.tone.frequency = TestConstants.StartingFrequency
