@@ -335,13 +335,17 @@ class HTBarsViewController: UIViewController {
 
     func FindFinalThresholdValue(arrayToParse arrayToParse: [Int]) -> (Int?) {
         let numberOfThresholdElements: Double = Double(arrayToParse.count)
-        
-        if numberOfThresholdElements < 3 { //we don't have enough values yet
-            return nil
-        } else {
+        var potentialThresholdValue: Int?
+        switch numberOfThresholdElements {
+        case 0: potentialThresholdValue = nil
+        case 1: potentialThresholdValue = nil       //Nothing to compare to
+        case 2:
+            if arrayToParse[0] == arrayToParse[1] { //If there are two values and they're the same, return them
+                potentialThresholdValue = arrayToParse[0]
+            }
+        default:
             //create a dictionary of thresholds and number of appearances
             var frequencyDictionary: [Int: Double] = [:]   //Start with an empty dictionary
-            var potentialThresholdValue: Int?
             
             for value in arrayToParse {
                 frequencyDictionary[value] = (frequencyDictionary[value] ?? 0) + 1  //If the dictionary already has a value, grab it then add one, if not, start at 0 then add 1
@@ -353,8 +357,8 @@ class HTBarsViewController: UIViewController {
                     }
                 }
             }
-            return potentialThresholdValue
         }
+        return potentialThresholdValue
     }
     
     func ShowResults() {
