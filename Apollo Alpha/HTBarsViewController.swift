@@ -14,8 +14,8 @@ class HTBarsViewController: UIViewController {
     //MARK: Constants/Setup
     
     struct DrawingConstantStruct {
-        let numberOfColumns: CGFloat = 8
-        let columnWidthPercentage: CGFloat = 0.8  //The percent width of the screen the columns take up
+        let numberOfColumns: CGFloat = 6
+        let columnWidthPercentage: CGFloat = 0.85  //The percent width of the screen the columns take up
         let columnHeightPercentage: CGFloat = 0.9 //The percent height of the view the columns take up
         let yOffset: CGFloat = 10
         let columnRadius: CGFloat = 5
@@ -79,7 +79,7 @@ class HTBarsViewController: UIViewController {
         static let VolumeIncrease = 5
         static let LowestAllowedVolume = 235
         static let HighestAllowedVolume = 6
-        static let StartingFrequency: Freqs = Freqs.Hz125
+        static let StartingFrequency: Freqs = Freqs.Hz250
         static let StartingEar: Ears = Ears.rightEar
     }
     
@@ -97,12 +97,10 @@ class HTBarsViewController: UIViewController {
     
     enum Freqs: Int {    //NOTE: This order and position has to match exactly on the peripheral
         case dummy = 0
-        case Hz125
         case Hz250
         case Hz500
         case Hz1000
         case Hz2000
-        case Hz3000
         case Hz4000
         case Hz8000
     }
