@@ -78,6 +78,7 @@ class HTBarsViewController: UIViewController {
         static let VolumeDecrement = 10
         static let VolumeIncrease = 5
         static let LowestAllowedVolume = 235
+        static let HighestAllowedVolume = 6
         static let StartingFrequency: Freqs = Freqs.Hz125
         static let StartingEar: Ears = Ears.rightEar
     }
@@ -247,11 +248,18 @@ class HTBarsViewController: UIViewController {
     
     //MARK: Brains
     func MissedATone() {
-       //Set mode to ascending, increase the volume
+       //Set mode to ascending, increase the volume. Bounds checking added so that we don't crash by sending UInt a value lower than 0.
         if currentTest != nil {
-            currentTest!.currentMode = .ascending
-            currentTest!.tone.volume = currentTest!.tone.volume - TestConstants.VolumeIncrease  //This needs to be subtracted because a lower value here is louder
-            SendMessage(currentTest!.tone)
+            if currentTest!.tone.volume <= TestConstants.HighestAllowedVolume { //This is less than because low values are louder. If we are louder than allowed, grab the value for the final threshold and move to next tone.
+                currentTest!.finalThreshold = currentTest!.tone.volume
+                finalResults.append(currentTest!.tone.volume)
+                PlayNextFrequency() //Sets up the next tone
+                SendMessage(currentTest!.tone)  //We have to actively send this, the timers based on button presses won't be armed because this is a missed tone.
+            } else {
+                currentTest!.currentMode = .ascending
+                currentTest!.tone.volume = currentTest!.tone.volume - TestConstants.VolumeIncrease  //This needs to be subtracted because a lower value here is louder
+                SendMessage(currentTest!.tone)
+            }
         }
     }
     
@@ -296,7 +304,7 @@ class HTBarsViewController: UIViewController {
 
             switch oldFrequency {
             case .Hz8000:
-                if oldEar == .leftEar {     //This is the final ear, we're done
+                if oldEar == .leftEar {     //This is the final ear, we're done.
                     ShowResults()
                 } else if oldEar == .rightEar { //Go to the next ear, start over the frequencies, remove the rects, update the ear
                     currentTest!.tone.ear = .leftEar
