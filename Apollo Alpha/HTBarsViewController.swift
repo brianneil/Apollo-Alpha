@@ -78,7 +78,7 @@ class HTBarsViewController: UIViewController {
     
     //Test constants
     private struct TestConstants {
-        static let StartingVolume = 75
+        static let StartingVolume = [50, 50, 60, 60, 65, 65]
         static let VolumeDecrement = 10
         static let VolumeIncrease = 5
         static let LowestAllowedVolume = 235
@@ -226,7 +226,7 @@ class HTBarsViewController: UIViewController {
         
         //Set up the test
         if currentTest == nil {
-            let tone = Tone(frequency: TestConstants.StartingFrequency, ear: TestConstants.StartingEar, volume: TestConstants.StartingVolume)
+            let tone = Tone(frequency: TestConstants.StartingFrequency, ear: TestConstants.StartingEar, volume: TestConstants.StartingVolume[0])
             currentTest = FrequencyTest(tone: tone, currentMode: .descending, thresholds: [], finalThreshold: nil)
             SendMessage(currentTest!.tone)
         }
@@ -303,26 +303,27 @@ class HTBarsViewController: UIViewController {
             
             //Destroy and then recreate currentTest
             currentTest = nil
-            let tone = Tone(frequency: TestConstants.StartingFrequency, ear: TestConstants.StartingEar, volume: TestConstants.StartingVolume)
+            let tone = Tone(frequency: TestConstants.StartingFrequency, ear: TestConstants.StartingEar, volume: TestConstants.StartingVolume[0])
             currentTest = FrequencyTest(tone: tone, currentMode: .descending, thresholds: [], finalThreshold: nil)
 
             switch oldFrequency {
             case .Hz8000:
                 if oldEar == .leftEar {     //This is the final ear, we're done.
                     ShowResults()
-                    return
+                    return              //This kicks us out so we don't flag message prepped and keep running the test in the background while results are shown
                 } else if oldEar == .rightEar { //Go to the next ear, start over the frequencies, remove the rects, update the ear
                     currentTest!.tone.ear = .leftEar
                     currentTest!.tone.frequency = TestConstants.StartingFrequency
+                    currentTest!.tone.volume = TestConstants.StartingVolume[0]
                     RemoveSmallRects()
                     updateEarLabel()
                 }
             default:
                 //Keep the ear the same, increment the frequency, darken the current column, draw the next column of rects
                 currentTest!.tone.ear = oldEar
-                currentTest!.tone.volume = TestConstants.StartingVolume
                 if let nextFreq = Freqs(rawValue: oldFrequency.hashValue + 1) {
                     currentTest!.tone.frequency = nextFreq
+                    currentTest!.tone.volume = TestConstants.StartingVolume[nextFreq.hashValue - 1] //Have to subtract one because of the dummy value
                     DarkenSmallRects(column: oldFrequency.hashValue - 1)    //Have to subtract one because of the dummy value
                     DrawSmallRects(column: nextFreq.hashValue - 1)          //Have to subtract one because of the dummy value
                 }
