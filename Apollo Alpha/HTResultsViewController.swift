@@ -19,7 +19,7 @@ class HTResultsViewController: UIViewController {
     
     var columnViews: [UIView] = []  //A place to store columns
     
-    let baselineVolume: Double = 100
+    let baselineVolume: [Double] = [85, 95, 120, 135, 140, 110, 85, 95, 120, 135, 140, 110]     //This is hacky, run it twice here to
     
     //MARK: Drawing
     func DrawColumns(viewToDrawIn: UIView, constants: HTBarsViewController.DrawingConstantStruct) {
@@ -41,8 +41,8 @@ class HTResultsViewController: UIViewController {
 
     }
     
-    func DrawSmallRects(columnView: UIView, result: Int, constants: HTBarsViewController.DrawingConstantStruct) {
-        let percentOfTotal: Double = (baselineVolume - Double(result)) / baselineVolume
+    func DrawSmallRects(columnView: UIView, result: Int, baseline: Double, constants: HTBarsViewController.DrawingConstantStruct) {
+        let percentOfTotal: Double = (baseline - Double(result)) / baseline
         let rectsToShade: Int = Int(round(percentOfTotal * Double(constants.numberOfSmallRects)))
         
         let frame = columnView.bounds
@@ -77,7 +77,8 @@ class HTResultsViewController: UIViewController {
         if results.count == columnViews.count { //Confirm that we have all the results
             for Index in 0..<columnViews.count {
                 let result = results[Index]
-                DrawSmallRects(columnViews[Index], result: result, constants: drawingConstants)
+                let baseline = baselineVolume[Index]
+                DrawSmallRects(columnViews[Index], result: result, baseline: baseline, constants: drawingConstants)
             }
         }
         
