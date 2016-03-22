@@ -77,7 +77,7 @@ class HTBarsViewController: UIViewController {
         static let StartingVolume = 75
         static let VolumeDecrement = 10
         static let VolumeIncrease = 5
-        static let StartingFrequency: Freqs = Freqs.Hz125
+        static let StartingFrequency: Freqs = Freqs.Hz250
         static let StartingEar: Ears = Ears.rightEar
     }
     
@@ -94,9 +94,7 @@ class HTBarsViewController: UIViewController {
     }
     
     enum Freqs: Int {    //NOTE: This order and position has to match exactly on the peripheral
-        case dummy = 0
-        case Hz125
-        case Hz250
+        case Hz250 = 0
         case Hz500
         case Hz1000
         case Hz2000

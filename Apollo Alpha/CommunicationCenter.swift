@@ -14,7 +14,7 @@ class CommunicationCenter: NSObject {
     
     private struct constants {
         static let dataKey = "MessageFromPeripheral"
-        static let StartListening: UInt8 = 1
+        static let StartListening: UInt8 = 1    //TODO: Change this back?
     }
     
     override init() {
