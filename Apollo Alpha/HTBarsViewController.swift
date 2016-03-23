@@ -14,8 +14,8 @@ class HTBarsViewController: UIViewController {
     //MARK: Constants/Setup
     
     struct DrawingConstantStruct {
-        let numberOfColumns: CGFloat = 8
-        let columnWidthPercentage: CGFloat = 0.8  //The percent width of the screen the columns take up
+        let numberOfColumns: CGFloat = 6
+        let columnWidthPercentage: CGFloat = 0.85  //The percent width of the screen the columns take up
         let columnHeightPercentage: CGFloat = 0.9 //The percent height of the view the columns take up
         let yOffset: CGFloat = 10
         let columnRadius: CGFloat = 5
@@ -59,11 +59,15 @@ class HTBarsViewController: UIViewController {
     //Other variables
     private var beepReactionTimer: NSTimer? = nil
     private var beepDelayTimer: NSTimer? = nil
+    var isBeeping: Bool = false
     
     //Timer constants
     private struct timeConstants {
-        static let reactionTimeAllowed = 3.0
-        static let delayAfterTap = 2.0
+        static let reactionTimeAllowed = 2.0        //This is the length of the beep. They must press during the beep.
+    }
+    
+    var delayAfterTap: Double {
+        return Double(arc4random_uniform(4)) + 2.0    //Returns a random int between 2 and 4.
     }
     
     //String constants
@@ -74,11 +78,12 @@ class HTBarsViewController: UIViewController {
     
     //Test constants
     private struct TestConstants {
-        static let StartingVolume = 75
+        static let StartingVolume = [50, 50, 60, 60, 65, 65]
         static let VolumeDecrement = 10
         static let VolumeIncrease = 5
         static let LowestAllowedVolume = 235
-        static let StartingFrequency: Freqs = Freqs.Hz125
+        static let HighestAllowedVolume = 6
+        static let StartingFrequency: Freqs = Freqs.Hz250
         static let StartingEar: Ears = Ears.rightEar
     }
     
@@ -96,12 +101,10 @@ class HTBarsViewController: UIViewController {
     
     enum Freqs: Int {    //NOTE: This order and position has to match exactly on the peripheral
         case dummy = 0
-        case Hz125
         case Hz250
         case Hz500
         case Hz1000
         case Hz2000
-        case Hz3000
         case Hz4000
         case Hz8000
     }
@@ -130,13 +133,15 @@ class HTBarsViewController: UIViewController {
     
     @IBAction func TappedHere(sender: UIButton) {
         //start a timer that delays the next beep
+        if(isBeeping) {  //Need this if statement to so we ignore false taps (i.e. taps when the tone isn't playing).
+            CaughtATone()   //Tell the brain we caught a tone.
+            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+                if self.beepDelayTimer == nil {
+                    self.beepDelayTimer = NSTimer.scheduledTimerWithTimeInterval(self.delayAfterTap, target: self, selector: Selector("DelayAfterTapTimerElapsed"), userInfo: nil, repeats: false)
+                }
+                })
+        }
         StopBeepReactionTimer() //They hit it before the reaction timer elapsed, so kill that timer until the next beep
-        CaughtATone()   //Tell the brain we caught a tone.
-        dispatch_async(dispatch_get_main_queue(), { [unowned self] in
-            if self.beepDelayTimer == nil {
-                self.beepDelayTimer = NSTimer.scheduledTimerWithTimeInterval(timeConstants.delayAfterTap, target: self, selector: Selector("DelayAfterTapTimerElapsed"), userInfo: nil, repeats: false)
-            }
-        })
     }
     
     @IBOutlet weak var EarLabel: UILabel!
@@ -221,7 +226,7 @@ class HTBarsViewController: UIViewController {
         
         //Set up the test
         if currentTest == nil {
-            let tone = Tone(frequency: TestConstants.StartingFrequency, ear: TestConstants.StartingEar, volume: TestConstants.StartingVolume)
+            let tone = Tone(frequency: TestConstants.StartingFrequency, ear: TestConstants.StartingEar, volume: TestConstants.StartingVolume[0])
             currentTest = FrequencyTest(tone: tone, currentMode: .descending, thresholds: [], finalThreshold: nil)
             SendMessage(currentTest!.tone)
         }
@@ -247,11 +252,18 @@ class HTBarsViewController: UIViewController {
     
     //MARK: Brains
     func MissedATone() {
-       //Set mode to ascending, increase the volume
+       //Set mode to ascending, increase the volume. Bounds checking added so that we don't crash by sending UInt a value lower than 0.
         if currentTest != nil {
-            currentTest!.currentMode = .ascending
-            currentTest!.tone.volume = currentTest!.tone.volume - TestConstants.VolumeIncrease  //This needs to be subtracted because a lower value here is louder
-            SendMessage(currentTest!.tone)
+            if currentTest!.tone.volume <= TestConstants.HighestAllowedVolume { //This is less than because low values are louder. If we are louder than allowed, grab the value for the final threshold and move to next tone.
+                currentTest!.finalThreshold = currentTest!.tone.volume
+                finalResults.append(currentTest!.tone.volume)
+                PlayNextFrequency() //Sets up the next tone
+                SendMessage(currentTest!.tone)  //We have to actively send this, the timers based on button presses won't be armed because this is a missed tone.
+            } else {
+                currentTest!.currentMode = .ascending
+                currentTest!.tone.volume = currentTest!.tone.volume - TestConstants.VolumeIncrease  //This needs to be subtracted because a lower value here is louder
+                SendMessage(currentTest!.tone)
+            }
         }
     }
     
@@ -291,25 +303,27 @@ class HTBarsViewController: UIViewController {
             
             //Destroy and then recreate currentTest
             currentTest = nil
-            let tone = Tone(frequency: TestConstants.StartingFrequency, ear: TestConstants.StartingEar, volume: TestConstants.StartingVolume)
+            let tone = Tone(frequency: TestConstants.StartingFrequency, ear: TestConstants.StartingEar, volume: TestConstants.StartingVolume[0])
             currentTest = FrequencyTest(tone: tone, currentMode: .descending, thresholds: [], finalThreshold: nil)
 
             switch oldFrequency {
             case .Hz8000:
-                if oldEar == .leftEar {     //This is the final ear, we're done
+                if oldEar == .leftEar {     //This is the final ear, we're done.
                     ShowResults()
+                    return              //This kicks us out so we don't flag message prepped and keep running the test in the background while results are shown
                 } else if oldEar == .rightEar { //Go to the next ear, start over the frequencies, remove the rects, update the ear
                     currentTest!.tone.ear = .leftEar
                     currentTest!.tone.frequency = TestConstants.StartingFrequency
+                    currentTest!.tone.volume = TestConstants.StartingVolume[0]
                     RemoveSmallRects()
                     updateEarLabel()
                 }
             default:
                 //Keep the ear the same, increment the frequency, darken the current column, draw the next column of rects
                 currentTest!.tone.ear = oldEar
-                currentTest!.tone.volume = TestConstants.StartingVolume
                 if let nextFreq = Freqs(rawValue: oldFrequency.hashValue + 1) {
                     currentTest!.tone.frequency = nextFreq
+                    currentTest!.tone.volume = TestConstants.StartingVolume[nextFreq.hashValue - 1] //Have to subtract one because of the dummy value
                     DarkenSmallRects(column: oldFrequency.hashValue - 1)    //Have to subtract one because of the dummy value
                     DrawSmallRects(column: nextFreq.hashValue - 1)          //Have to subtract one because of the dummy value
                 }
@@ -329,13 +343,17 @@ class HTBarsViewController: UIViewController {
 
     func FindFinalThresholdValue(arrayToParse arrayToParse: [Int]) -> (Int?) {
         let numberOfThresholdElements: Double = Double(arrayToParse.count)
-        
-        if numberOfThresholdElements < 3 { //we don't have enough values yet
-            return nil
-        } else {
+        var potentialThresholdValue: Int?
+        switch numberOfThresholdElements {
+        case 0: potentialThresholdValue = nil
+        case 1: potentialThresholdValue = nil       //Nothing to compare to
+        case 2:
+            if arrayToParse[0] == arrayToParse[1] { //If there are two values and they're the same, return them
+                potentialThresholdValue = arrayToParse[0]
+            }
+        default:
             //create a dictionary of thresholds and number of appearances
             var frequencyDictionary: [Int: Double] = [:]   //Start with an empty dictionary
-            var potentialThresholdValue: Int?
             
             for value in arrayToParse {
                 frequencyDictionary[value] = (frequencyDictionary[value] ?? 0) + 1  //If the dictionary already has a value, grab it then add one, if not, start at 0 then add 1
@@ -347,8 +365,8 @@ class HTBarsViewController: UIViewController {
                     }
                 }
             }
-            return potentialThresholdValue
         }
+        return potentialThresholdValue
     }
     
     func ShowResults() {
@@ -356,6 +374,7 @@ class HTBarsViewController: UIViewController {
     }
     
     func ToneWasPlayed() {
+        isBeeping = true    //Beep is happening
         //Start a timer. If this timer elapses, it means the user missed the tone. If they tap before this timer elapses, the tap handler will kill this timer.
         dispatch_async(dispatch_get_main_queue(), { [unowned self] in
             if self.beepReactionTimer == nil {
@@ -373,6 +392,7 @@ class HTBarsViewController: UIViewController {
         if beepReactionTimer == nil {
             return
         }
+        isBeeping = false
         beepReactionTimer?.invalidate()
         beepReactionTimer = nil
     }
