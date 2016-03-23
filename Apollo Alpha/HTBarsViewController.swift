@@ -122,7 +122,8 @@ class HTBarsViewController: UIViewController {
         var finalThreshold: Int?                     //This will store the final volume threshold
     }
     
-    var finalResults: [Int] = []
+    var numberOfTaps: Int = 0
+    var finalResults: [Int] = [85, 95, 100, 100, 75, 70, 85, 95, 120, 135, 100, 80]
     private var currentTest: FrequencyTest? = nil
     private var messagePrepped = false
 
@@ -133,15 +134,23 @@ class HTBarsViewController: UIViewController {
     
     @IBAction func TappedHere(sender: UIButton) {
         //start a timer that delays the next beep
-        if(isBeeping) {  //Need this if statement to so we ignore false taps (i.e. taps when the tone isn't playing).
-            CaughtATone()   //Tell the brain we caught a tone.
-            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
-                if self.beepDelayTimer == nil {
-                    self.beepDelayTimer = NSTimer.scheduledTimerWithTimeInterval(self.delayAfterTap, target: self, selector: Selector("DelayAfterTapTimerElapsed"), userInfo: nil, repeats: false)
-                }
-                })
+//        if(isBeeping) {  //Need this if statement to so we ignore false taps (i.e. taps when the tone isn't playing).
+//            CaughtATone()   //Tell the brain we caught a tone.
+//            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
+//                if self.beepDelayTimer == nil {
+//                    self.beepDelayTimer = NSTimer.scheduledTimerWithTimeInterval(self.delayAfterTap, target: self, selector: Selector("DelayAfterTapTimerElapsed"), userInfo: nil, repeats: false)
+//                }
+//                })
+//        }
+//        StopBeepReactionTimer() //They hit it before the reaction timer elapsed, so kill that timer until the next beep
+        numberOfTaps++
+        DarkenSmallRects(column: numberOfTaps - 1)    //Darken the current column
+        DrawSmallRects(column: numberOfTaps)          //Draw the next column
+        
+        if numberOfTaps > 3 {
+            ShowResults()
         }
-        StopBeepReactionTimer() //They hit it before the reaction timer elapsed, so kill that timer until the next beep
+        
     }
     
     @IBOutlet weak var EarLabel: UILabel!
