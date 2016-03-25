@@ -19,7 +19,7 @@ class CommunicationCenter: NSObject {
     
     override init() {
         super.init()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "receivedMessage:", name: messageFromPeripheralNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommunicationCenter.receivedMessage(_:)), name: messageFromPeripheralNotification, object: nil)
     }
 
     deinit {

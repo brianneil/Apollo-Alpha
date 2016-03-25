@@ -137,7 +137,7 @@ class HTBarsViewController: UIViewController {
             CaughtATone()   //Tell the brain we caught a tone.
             dispatch_async(dispatch_get_main_queue(), { [unowned self] in
                 if self.beepDelayTimer == nil {
-                    self.beepDelayTimer = NSTimer.scheduledTimerWithTimeInterval(self.delayAfterTap, target: self, selector: Selector("DelayAfterTapTimerElapsed"), userInfo: nil, repeats: false)
+                    self.beepDelayTimer = NSTimer.scheduledTimerWithTimeInterval(self.delayAfterTap, target: self, selector: #selector(HTBarsViewController.DelayAfterTapTimerElapsed), userInfo: nil, repeats: false)
                 }
                 })
         }
@@ -233,7 +233,7 @@ class HTBarsViewController: UIViewController {
         
         
         //Set up message received notification watcher, call messageReceived if we get something
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "ToneWasPlayed", name: PeripheralBeepedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HTBarsViewController.ToneWasPlayed), name: PeripheralBeepedNotification, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -378,7 +378,7 @@ class HTBarsViewController: UIViewController {
         //Start a timer. If this timer elapses, it means the user missed the tone. If they tap before this timer elapses, the tap handler will kill this timer.
         dispatch_async(dispatch_get_main_queue(), { [unowned self] in
             if self.beepReactionTimer == nil {
-                self.beepReactionTimer = NSTimer.scheduledTimerWithTimeInterval(timeConstants.reactionTimeAllowed, target: self, selector: Selector("BeepReactionTimerElapsed"), userInfo: nil, repeats: false)
+                self.beepReactionTimer = NSTimer.scheduledTimerWithTimeInterval(timeConstants.reactionTimeAllowed, target: self, selector: #selector(HTBarsViewController.BeepReactionTimerElapsed), userInfo: nil, repeats: false)
             }
         })
     }

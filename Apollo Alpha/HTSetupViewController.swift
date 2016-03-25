@@ -35,7 +35,7 @@ class HTSetupViewController: UIViewController {
         BLEStatus.text = "BLE Status: Disconnected"
         
         //Set up BLE connection notification watching, call connectionChanged if it changes
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("connectionChanged:"), name: BLEServiceChangedStatusNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HTSetupViewController.connectionChanged(_:)), name: BLEServiceChangedStatusNotification, object: nil)
         
         //start searching for BLE
         btDiscoverySharedInstance

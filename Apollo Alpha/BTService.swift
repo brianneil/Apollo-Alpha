@@ -142,7 +142,7 @@ class BTService: NSObject, CBPeripheralDelegate {
             //And start the delay timer so we don't overload the TX channel
             allowTX = false
             if TimerTXDelay == nil {
-                TimerTXDelay = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("timerTXDelayElapsed"), userInfo: nil, repeats: false)
+                TimerTXDelay = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BTService.timerTXDelayElapsed), userInfo: nil, repeats: false)
             }
         }
     }
