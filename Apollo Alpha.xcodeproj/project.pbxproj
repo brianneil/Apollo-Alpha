@@ -17,6 +17,8 @@
 		D309F55C1C7656370098FD4E /* HTSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55B1C7656370098FD4E /* HTSetupViewController.swift */; };
 		D309F5601C7656650098FD4E /* BTDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55E1C7656650098FD4E /* BTDiscovery.swift */; };
 		D309F5611C7656650098FD4E /* BTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D309F55F1C7656650098FD4E /* BTService.swift */; };
+		D34376C91CA9F9FC003A040D /* FittingUIVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34376C81CA9F9FC003A040D /* FittingUIVC.swift */; };
+		D34376CB1CAA04EE003A040D /* TestBeepUIVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34376CA1CAA04EE003A040D /* TestBeepUIVC.swift */; };
 		D36B7C1B1CA4BD86004DFE27 /* WelcomeUVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36B7C1A1CA4BD86004DFE27 /* WelcomeUVC.swift */; };
 		D36B7C1D1CA4E4E8004DFE27 /* BTPairUIVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36B7C1C1CA4E4E8004DFE27 /* BTPairUIVC.swift */; };
 		D38841A01C7E6D1A00C151E0 /* HTResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D388419F1C7E6D1A00C151E0 /* HTResultsViewController.swift */; };
@@ -58,6 +60,8 @@
 		D309F55B1C7656370098FD4E /* HTSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTSetupViewController.swift; sourceTree = "<group>"; };
 		D309F55E1C7656650098FD4E /* BTDiscovery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTDiscovery.swift; sourceTree = "<group>"; };
 		D309F55F1C7656650098FD4E /* BTService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTService.swift; sourceTree = "<group>"; };
+		D34376C81CA9F9FC003A040D /* FittingUIVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FittingUIVC.swift; sourceTree = "<group>"; };
+		D34376CA1CAA04EE003A040D /* TestBeepUIVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBeepUIVC.swift; sourceTree = "<group>"; };
 		D36B7C1A1CA4BD86004DFE27 /* WelcomeUVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeUVC.swift; sourceTree = "<group>"; };
 		D36B7C1C1CA4E4E8004DFE27 /* BTPairUIVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPairUIVC.swift; sourceTree = "<group>"; };
 		D388419F1C7E6D1A00C151E0 /* HTResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTResultsViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 			isa = PBXGroup;
 			children = (
 				D309F5591C7655ED0098FD4E /* Main.storyboard */,
+				D34376CA1CAA04EE003A040D /* TestBeepUIVC.swift */,
+				D34376C81CA9F9FC003A040D /* FittingUIVC.swift */,
 				D36B7C1C1CA4E4E8004DFE27 /* BTPairUIVC.swift */,
 				D36B7C1A1CA4BD86004DFE27 /* WelcomeUVC.swift */,
 				D388419F1C7E6D1A00C151E0 /* HTResultsViewController.swift */,
@@ -296,9 +302,11 @@
 				D309F55C1C7656370098FD4E /* HTSetupViewController.swift in Sources */,
 				D309F5611C7656650098FD4E /* BTService.swift in Sources */,
 				D36B7C1D1CA4E4E8004DFE27 /* BTPairUIVC.swift in Sources */,
+				D34376C91CA9F9FC003A040D /* FittingUIVC.swift in Sources */,
 				D309F5601C7656650098FD4E /* BTDiscovery.swift in Sources */,
 				D38ACA151C7B92F3008D1EE7 /* HTBarsViewController.swift in Sources */,
 				D36B7C1B1CA4BD86004DFE27 /* WelcomeUVC.swift in Sources */,
+				D34376CB1CAA04EE003A040D /* TestBeepUIVC.swift in Sources */,
 				D38ACA171C7BB8EB008D1EE7 /* CommunicationCenter.swift in Sources */,
 				D309F52A1C7655830098FD4E /* AppDelegate.swift in Sources */,
 			);

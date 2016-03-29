@@ -10,11 +10,17 @@ import UIKit
 import CoreBluetooth
 
 let btDiscoverySharedInstance = BTDiscovery();
+let BLEOnOffChangedStatusNotification = "kBLEOnOffChangedStatusNotification"
 
 class BTDiscovery: NSObject, CBCentralManagerDelegate {
     
     private var centralManager: CBCentralManager?
     private var peripheral: CBPeripheral?
+    
+    private struct constants {
+        static let OnOffKey = "OnOffKey"
+    }
+    
     
     override init() {
         super.init()
@@ -89,13 +95,20 @@ class BTDiscovery: NSObject, CBCentralManagerDelegate {
         switch central.state {
         case .PoweredOff:
             clearDevices()
+            sendBLOnOffStatus(false)
         case .Unauthorized: break   //Means that the device does not support BLE
         case .Unknown: break        //Wait for another event to occur
         case .PoweredOn:
             self.startScanning() //First time powered up, scan
+            sendBLOnOffStatus(true)
         case .Resetting:
             clearDevices()
         case .Unsupported: break
         }
+    }
+    
+    func sendBLOnOffStatus(isOn: Bool) {
+        let onOffStatus = [constants.OnOffKey: isOn]
+        NSNotificationCenter.defaultCenter().postNotificationName(BLEOnOffChangedStatusNotification, object: self, userInfo: onOffStatus) //Posts a notification if the state of the power on/off changes.
     }
 }
