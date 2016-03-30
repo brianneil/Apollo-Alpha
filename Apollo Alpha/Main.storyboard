@@ -182,10 +182,10 @@
             </objects>
             <point key="canvasLocation" x="2888" y="1250"/>
         </scene>
-        <!--View Controller-->
+        <!--InstructionsUIVC-->
         <scene sceneID="J70-6l-3wW">
             <objects>
-                <viewController id="f74-0s-hoH" sceneMemberID="viewController">
+                <viewController id="f74-0s-hoH" customClass="InstructionsUIVC" customModule="Apollo_Alpha" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0hu-Xt-uuf"/>
                         <viewControllerLayoutGuide type="bottom" id="4D9-n1-Gol"/>
@@ -203,23 +203,105 @@ Tap the button when you think you hear a tone, no matter how faint it is. The sy
                                 <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDJ-qm-nm9">
-                                <rect key="frame" x="254" y="349" width="92" height="42"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDJ-qm-nm9">
+                                <rect key="frame" x="254" y="361" width="92" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Got it →"/>
+                                <connections>
+                                    <segue destination="q2c-lR-n75" kind="show" id="5a4-VL-Wdl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Oj7-m3-gb1" firstAttribute="top" secondItem="0hu-Xt-uuf" secondAttribute="bottom" constant="8" id="1t7-7e-IPH"/>
+                            <constraint firstItem="UDJ-qm-nm9" firstAttribute="centerX" secondItem="Oj7-m3-gb1" secondAttribute="centerX" id="3WO-Am-7Tg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Oj7-m3-gb1" secondAttribute="trailing" id="E31-pR-Gmx"/>
                             <constraint firstItem="Oj7-m3-gb1" firstAttribute="leading" secondItem="wlY-ME-Owt" secondAttribute="leadingMargin" id="Kfh-j9-2hO"/>
+                            <constraint firstItem="UDJ-qm-nm9" firstAttribute="top" secondItem="Oj7-m3-gb1" secondAttribute="bottom" constant="20" id="Phe-U5-t06"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VoZ-31-LAk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3663" y="1250"/>
+        </scene>
+        <!--TestUIVC-->
+        <scene sceneID="ygB-do-mPr">
+            <objects>
+                <viewController id="q2c-lR-n75" customClass="TestUIVC" customModule="Apollo_Alpha" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="G0K-Td-g9j"/>
+                        <viewControllerLayoutGuide type="bottom" id="adz-G1-rl8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Pfo-VF-UoY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ZE-RE-K6Z">
+                                <rect key="frame" x="20" y="72" width="560" height="119.5"/>
+                                <string key="text">Let's try a test beep to make sure everything is working. When you're ready press the "Ready!" button below. When you hear a tone, press the button again.</string>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
+                                <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vl1-CJ-Imb">
+                                <rect key="frame" x="175" y="315" width="250" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="XeZ-93-W45"/>
+                                    <constraint firstAttribute="height" constant="250" id="pYc-uq-sGp"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="Ready Button"/>
+                                <connections>
+                                    <action selector="ReadyForTone:" destination="q2c-lR-n75" eventType="touchUpInside" id="bE0-r7-0oV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xj7-Is-aiB">
+                                <rect key="frame" x="175" y="315" width="250" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="bw3-9j-P3o"/>
+                                    <constraint firstAttribute="width" secondItem="xj7-Is-aiB" secondAttribute="height" multiplier="1:1" id="kls-OD-Haj"/>
+                                    <constraint firstAttribute="width" constant="250" id="mLV-XO-CUI"/>
+                                </constraints>
+                                <state key="normal" image="Tap Here Button"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="kls-OD-Haj"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="HeardTone:" destination="q2c-lR-n75" eventType="touchUpInside" id="Kms-LB-xef"/>
+                                    <action selector="TappedHere:" destination="4lo-oA-e0R" eventType="touchUpInside" id="qhI-Fg-SBI"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="9ZE-RE-K6Z" secondAttribute="leading" id="2HO-zo-so2"/>
+                            <constraint firstItem="vl1-CJ-Imb" firstAttribute="centerX" secondItem="9ZE-RE-K6Z" secondAttribute="centerX" id="2Ug-gH-FCZ"/>
+                            <constraint firstItem="xj7-Is-aiB" firstAttribute="centerY" secondItem="vl1-CJ-Imb" secondAttribute="centerY" id="4i8-7c-HAT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9ZE-RE-K6Z" secondAttribute="trailing" id="6p5-HE-WXW"/>
+                            <constraint firstItem="xj7-Is-aiB" firstAttribute="width" secondItem="xj7-Is-aiB" secondAttribute="height" multiplier="1:1" id="Ccr-Iw-85n"/>
+                            <constraint firstItem="adz-G1-rl8" firstAttribute="top" secondItem="vl1-CJ-Imb" secondAttribute="bottom" constant="35" id="GFz-u9-U8X"/>
+                            <constraint firstItem="xj7-Is-aiB" firstAttribute="centerX" secondItem="vl1-CJ-Imb" secondAttribute="centerX" id="ecR-bE-9B2"/>
+                            <constraint firstItem="9ZE-RE-K6Z" firstAttribute="top" secondItem="G0K-Td-g9j" secondAttribute="bottom" constant="8" id="jP9-pi-7Rd"/>
+                            <constraint firstItem="vl1-CJ-Imb" firstAttribute="top" secondItem="9ZE-RE-K6Z" secondAttribute="bottom" constant="30" id="wpL-Ts-kYx"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Ccr-Iw-85n"/>
+                                <exclude reference="wpL-Ts-kYx"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="ReadyButton" destination="vl1-CJ-Imb" id="vea-y5-v8T"/>
+                        <outlet property="TapHereButton" destination="xj7-Is-aiB" id="Naz-pJ-odK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0uD-FU-HRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4421" y="1250"/>
         </scene>
         <!--Welcome-->
         <scene sceneID="bQ9-aT-25o">
@@ -428,6 +510,7 @@ Please enter your name</string>
         </scene>
     </scenes>
     <resources>
+        <image name="Ready Button" width="242" height="242"/>
         <image name="Tap Here Button" width="236" height="236"/>
     </resources>
 </document>

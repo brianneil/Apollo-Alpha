@@ -8,10 +8,10 @@
 
 import UIKit
 
-class TestBeepUIVC: UIViewController {
+class InstructionsUIVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Test Beep"
+        self.title = "Instructions"
     }
 }
